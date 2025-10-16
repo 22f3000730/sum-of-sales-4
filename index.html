@@ -18,6 +18,25 @@
                         <p class="display-4" id="total-sales">Calculating...</p>
                     </div>
                 </div>
+                
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Product Sales</h5>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="product-sales">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Sales</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Product sales data will be inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -37,14 +56,17 @@
                 // Parse CSV data
                 const lines = csvText.trim().split('\n');
                 let total = 0;
+                const salesData = [];
                 
                 // Skip header row and process data rows
                 for (let i = 1; i < lines.length; i++) {
                     const columns = lines[i].split(',');
                     if (columns.length >= 2) {
+                        const productName = columns[0];
                         const salesValue = parseFloat(columns[1]);
                         if (!isNaN(salesValue)) {
                             total += salesValue;
+                            salesData.push({ product: productName, sales: salesValue });
                         }
                     }
                 }
@@ -54,6 +76,19 @@
                 
                 // Display the total in the #total-sales element
                 document.getElementById('total-sales').textContent = total.toFixed(2);
+                
+                // Populate the product sales table
+                const tableBody = document.querySelector('#product-sales tbody');
+                tableBody.innerHTML = '';
+                
+                salesData.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.product}</td>
+                        <td>${item.sales.toFixed(2)}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
             } catch (error) {
                 console.error('Error processing sales data:', error);
                 document.getElementById('total-sales').textContent = 'Error';
