@@ -7,6 +7,7 @@ This single-page web application fetches sales data from a CSV file, calculates 
 - Fetches and processes CSV data client-side
 - Calculates the sum of sales from the "sales" column
 - Displays the total sales amount
+- Shows a detailed breakdown of product sales in a Bootstrap table
 - Uses Bootstrap 5 for styling
 - Dynamically sets the page title
 
@@ -16,7 +17,8 @@ This single-page web application fetches sales data from a CSV file, calculates 
 2. The CSV is parsed to extract sales values
 3. Sales values are summed to calculate a total
 4. The total is displayed in the `#total-sales` element
-5. The page title is updated to include the full encoded title string
+5. Individual product sales are displayed in the `#product-sales` table
+6. The page title is updated to include the full encoded title string
 
 ## Technical Details
 
